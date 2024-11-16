@@ -1,2 +1,3 @@
-# exercies
+# Exercises
+
 Network learning exercies
