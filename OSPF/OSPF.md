@@ -236,3 +236,194 @@ Routing Protocol is "ospf 1"
   Router ID 3.3.3.3
   ...
 ```
+
+## Complete configurations
+
+In the end, the configurations of all routers should look something like the following:
+
+**R1**:
+
+```
+hostname R1
+!
+interface GigabitEthernet0/0/0
+ ip address 10.0.12.1 255.255.255.0
+ ip ospf 1 area 0
+ no shutdown
+!
+interface GigabitEthernet0/0/1
+ ip address 10.0.14.1 255.255.255.0
+ ip ospf 1 area 0
+ no shutdown
+!
+interface GigabitEthernet0/0/2
+ ip address 10.0.13.1 255.255.255.0
+ ip ospf 1 area 0
+ no shutdown
+!
+interface Vlan1
+ ip address 10.1.1.1 255.255.255.0
+ no shutdown
+!
+router ospf 1
+ router-id 1.1.1.1
+ passive-interface Vlan1
+```
+
+**R2**:
+
+```
+hostname R2
+!
+interface GigabitEthernet0/0/0
+ ip address 10.0.12.2 255.255.255.0
+ ip ospf 1 area 0
+ no shutdown
+!
+interface GigabitEthernet0/0/1
+ ip address 10.0.25.2 255.255.255.0
+ ip ospf 1 area 0
+ no shutdown
+!
+interface GigabitEthernet0/0/2
+ ip address 10.0.23.2 255.255.255.0
+ ip ospf 1 area 0
+ no shutdown
+!
+interface Vlan1
+ ip address 10.1.2.2 255.255.255.0
+ no shutdown
+!
+router ospf 1
+ router-id 2.2.2.2
+ passive-interface Vlan1
+!
+```
+
+**R3**:
+
+```
+hostname R3
+!
+interface GigabitEthernet0/0/0
+ ip address 10.0.23.3 255.255.255.0
+ ip ospf 1 area 0
+ no shutdown
+!
+interface GigabitEthernet0/0/1
+ ip address 10.0.34.3 255.255.255.0
+ ip ospf 1 area 0
+ no shutdown
+!
+interface GigabitEthernet0/0/2
+ ip address 10.0.13.3 255.255.255.0
+ ip ospf 1 area 0
+ no shutdown
+!
+router ospf 1
+ router-id 3.3.3.3
+```
+
+**R4**:
+
+```
+hostname R4
+!
+interface GigabitEthernet0/0/0
+ ip address 10.0.46.4 255.255.255.0
+ ip ospf 1 area 0
+ no shutdown
+!
+interface GigabitEthernet0/0/1
+ ip address 10.0.14.4 255.255.255.0
+ ip ospf 1 area 0
+ no shutdown
+!
+interface GigabitEthernet0/0/2
+ ip address 10.0.34.4 255.255.255.0
+ ip ospf 1 area 0
+ no shutdown
+!
+interface Vlan1
+ ip address 10.1.4.4 255.255.255.0
+ no shutdown
+!
+router ospf 1
+ router-id 4.4.4.4
+ passive-interface Vlan1
+```
+
+**R5**:
+
+```
+hostname R5
+!
+interface GigabitEthernet0/0/0
+ ip address 10.0.57.5 255.255.255.0
+ ip ospf 1 area 0
+ no shutdown
+!
+interface GigabitEthernet0/0/1
+ ip address 10.0.25.5 255.255.255.0
+ ip ospf 1 area 0
+ no shutdown
+!
+interface Vlan1
+ ip address 10.1.5.5 255.255.255.0
+ ip ospf 1 area 0
+ no shutdown
+!
+router ospf 1
+ router-id 5.5.5.5
+ passive-interface Vlan1
+```
+
+**R6**:
+
+```
+hostname R6
+!
+interface GigabitEthernet0/0/0
+ ip address 10.0.46.6 255.255.255.0
+ ip ospf 1 area 0
+ no shutdown
+!
+interface GigabitEthernet0/0/1
+ ip address 10.0.67.6 255.255.255.0
+ ip ospf 1 area 0
+ no shutdown
+!
+interface Vlan1
+ ip address 10.1.6.6 255.255.255.0
+ ip ospf 1 area 0
+ no shutdown
+!
+router ospf 1
+ router-id 6.6.6.6
+ passive-interface Vlan1
+```
+
+**R7**:
+
+```
+hostname R7
+!
+interface GigabitEthernet0/0/0
+ ip address 10.0.57.7 255.255.255.0
+ ip ospf 1 area 0
+ no shutdown
+!
+interface GigabitEthernet0/0/1
+ ip address 10.0.67.7 255.255.255.0
+ ip ospf 1 area 0
+ no shutdown
+!
+interface Vlan1
+ ip address 10.1.7.7 255.255.255.0
+ ip ospf 1 area 0
+ no shutdown
+!
+router ospf 1
+ router-id 7.7.7.7
+ passive-interface Vlan1
+```
