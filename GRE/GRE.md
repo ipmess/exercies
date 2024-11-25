@@ -2,24 +2,27 @@
 
 In this exercise, we will configure a point-to-point GRE tunnel between two site. Before starting with the configuration, you can get an introduction to GRE from the [Generic routing encapsulation Wikipedia page](https://en.wikipedia.org/wiki/Generic_routing_encapsulation).
 
-## Setup
+## Step 0: Setup
 
 For our purposes, you must first setup the following network:
 
 ![Network Topology](./images/GRE.underlay.svg)
 
-Note that PC1 should not be able to ping PC2. TO be more precise, there should not be any routes to the 10.0.0.0/24 or 10.0.1.0/24 subnets in either the R3, nor the R4 routers.  
+At the end, PC1 should not be able to ping PC2, but there should not be any routes to the 10.0.0.0/24 or 10.0.1.0/24 subnets in either the R3, nor the R4 routers.
+
+The R3 and R4 routers represent Internet routers. Internet routers will not accept RFC 1918 subnets, and they will not route packets destined to any destination in the 10.0.0.0/8 network. To simulate this Internet behavior , do not advertise the internal subnets (10.0.0.0/24 and 10.0.1.0/24) to R3 or R4.  
+
 You should also enable OSPF between R1, R3, R4, and R2, but do not advertise the 10.0.0.0/24 or 10.0.1.0/24 subnets into OSPF.
 
-To verify that everything is operational, you should be able to ping 15.7.8.1 (R1's IP address) from R2, sourced from the 8.4.2.2 (R2's IP address).
+To verify that the initial setup is operational, you should be able to ping 15.7.8.1 (R1's IP address) from R2, sourced from the 8.4.2.2 (R2's IP address).
 
-## The Tunnel
+## Step 1: The Tunnel
 
 Now you must setup a tunnel between R1 and R2. The tunnel will be part of the internal, private address space. Configure a GRE tunnel between R1 and R2, as shown below:
 
 ![GRE tunnel Topology](./images/GRE-topo.svg)
 
-At the end, you should be alble to ping R1's tunnel interface (10.1.12.1) from R2. PC1 should not be able to ping PC2, yet.
+At the end, you should be able to ping R1's tunnel interface (10.1.12.1) from R2, and vice versa. PC1 should not be able to ping PC2, yet.
 
 ### Routing though the tunnel
 
@@ -28,9 +31,11 @@ To route through the tunnel, R2 should learn about 10.0.0.0/24 and R1 about 10.0
 * Static routes
 * Dynamic routing
 
+## Step 2: Static routing through the tunnel
+
 For now, configure static routes on R1 and R2, to point to each other's tunnel interface.
 
-### Dynamic routing through the tunnel.
+## Step 3: Dynamic routing through the tunnel.
 
 In this exercise's last step, configure dynamic routing (OSPF) between R1 and R2, so they can advertise their respective local subnets to each other. Note that R3 and R4 should not learn about the three internal networks (10.0.0.0/24, 10.0.1.0/24, 10.1.12.0/30).
 
